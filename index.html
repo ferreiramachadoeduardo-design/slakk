@@ -3,66 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imposto    </title>
+    <title>Impostos no Brasil - Portal de Análise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f7f6; }
-        header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px; }
-        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        ul { list-style-type: none; padding: 0; }
-        li { margin-bottom: 10px; padding-left: 25px; position: relative; }
-        li::before { content: "•"; color: #3498db; font-weight: bold; position: absolute; left: 0; font-size: 1.2em; }
-        a { color: #2980b9; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
-        .footer { text-align: center; font-size: 0.9em; color: #7f8c8d; margin-top: 30px; }
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --bg: #f8fafc;
+            --text: #334155;
+            --white: #ffffff;
+        }
+
+        /* Suaviza a rolagem ao clicar no botão */
+        html { scroll-behavior: smooth; }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6; 
+            color: var(--text); 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--bg); 
+        }
+
+        /* --- SEÇÃO HERO --- */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), 
+                        url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; }
+
+        /* --- CONTEÚDO --- */
+        .container { 
+            max-width: 900px; 
+            margin: -50px auto 40px; 
+            padding: 0 20px;
+        }
+
+        h2 { 
+            color: var(--primary); 
+            border-left: 5px solid var(--secondary); 
+            padding-left: 15px; 
+            margin-bottom: 25px;
+        }
+
+        .card { 
+            background: var(--white); 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            margin-bottom: 30px; 
+        }
+
+        .tax-list li { 
+            margin-bottom: 20px; 
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            list-style: none;
+        }
+
+        .tax-list li:last-child { border-bottom: none; }
+
+        .tax-list strong { 
+            color: var(--secondary); 
+            display: block; 
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        /* --- BOTÃO VOLTAR AO TOPO --- */
+        #btnTop {
+            display: none; /* Escondido por padrão */
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--secondary);
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background 0.3s, transform 0.3s;
+            width: 50px;
+            height: 50px;
+        }
+
+        #btnTop:hover {
+            background-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .footer { 
+            text-align: center; 
+            padding: 40px; 
+            font-size: 0.9em; 
+            color: #94a3b8; 
+            background: #f1f5f9;
+        }
     </style>
 </head>
 <body>
 
-    <header>
+    <button onclick="topFunction()" id="btnTop" title="Voltar ao topo">↑</button>
+
+    <section class="hero" id="inicio">
         <h1>Impostos no Brasil</h1>
-        <p>O encargo que define a exata medida do custo do comum.</p>
-    </header>
+        <p>Tributos: o encargo que define a exata medida do custo do comum.</p>
+    </section>
 
-    <div class="card">
-        <h2>Tipos de Impostos Federais</h2>
-        <ul>
-            <li><strong> Imposto de Renda da Pessoa Física (IRPF):</strong> É um tributo federal brasileiro cobrado anualmente sobre os rendimentos e ganhos de indivíduos, como salários, aluguéis e investimentos, sendo declarado à Receita Federal para informar receitas e despesas, com alíquotas progressivas que variam conforme a renda, visando arrecadar fundos para serviços públicos.</li>
-            <li><strong> Imposto sobre a Renda das Pessoas Jurídicas (IRPJ):</strong> Ele é obrigatório para quase todos os CNPJs, com alíquotas de 15% mais um adicional de 10% sobre o que exceder R$ 20 mil mensais. O cálculo varia conforme o regime (Simples Nacional, Lucro Presumido ou Real), afetando diretamente a carga tributária. A apuração costuma ser trimestral ou anual, sendo essencial para manter a regularidade fiscal.</li>
-            <li><strong> Imposto sobre Produtos Industrializados (IPI):</strong> É um tributo federal que incide sobre itens que passaram por qualquer processo de industrialização. Ele é cobrado tanto na saída do produto da fábrica quanto no desembaraço aduaneiro de mercadorias importadas. Suas alíquotas variam conforme a essencialidade do item: produtos básicos pagam menos, enquanto supérfluos (como cigarros e bebidas) pagam mais.</li>
-            <li><strong> Imposto sobre Operações Financeiras (IOF):</strong> É um tributo federal que incide sobre crédito, câmbio, seguros e títulos mobiliários. Ele funciona como uma ferramenta de controle da economia, permitindo ao governo regular a oferta de crédito e o fluxo de moeda. As alíquotas variam conforme a operação: em empréstimos e cartões internacionais, ele encarece o custo final para o consumidor.</li>
-            <li><strong> Imposto de Importação (II): </strong> Taxa produtos estrangeiros para proteger a indústria brasileira. O cálculo baseia-se no valor aduaneiro da mercadoria, variando conforme a classificação fiscal do produto. Possue função extrafiscal, permitindo ao governo alterar alíquotas rapidamente para equilibrar a balança comercial. </li>
-            <li><strong> Imposto de Exportação (IE): </strong> Incide sobre produtos nacionais enviados ao exterior. É usado estrategicamente para evitar o desabastecimento interno de itens essenciais no mercado brasileiro. Possue função extrafiscal, permitindo ao governo alterar alíquotas rapidamente para equilibrar a balança comercial. </li>
-            <li><strong> Programa de Integração Social (PIS): </strong> É uma contribuição federal paga pelas empresas para financiar o seguro-desemprego e o abono salarial. Ele incide sobre o faturamento ou sobre a folha de pagamento, com alíquotas de 0,65% ou 1,65%, conforme o regime tributário. Para o trabalhador, o PIS garante o abono anual, desde que cumpridos os requisitos de renda e tempo de carteira assinada. </li>
-            <li><strong> Contribuição para o Financiamento da Seguridade Social (COFINS): </strong> É uma contribuição federal que incide sobre o faturamento bruto das empresas para custear a Seguridade Social (saúde, previdência e assistência). Suas alíquotas variam entre 3% no regime cumulativo (Lucro Presumido) e 7,6% no não cumulativo (Lucro Real). No regime de 7,6%, a empresa pode descontar créditos de insumos para reduzir o valor final a pagar. </li>
-            <li><strong> Contribuição Social sobre o Lucro Líquido (CSLL): </strong> é um tributo federal que incide sobre o lucro das empresas para financiar a Seguridade Social (saúde, previdência e assistência). Sua alíquota geral é de 9%, mas instituições financeiras e bancos pagam taxas maiores, chegando a 15% ou mais. O cálculo segue o regime tributário da empresa (Simples Nacional, Lucro Presumido ou Lucro Real), assim como o IRPJ. </li>
-        </ul>
-    </div>
+    <div class="container">
+        <div class="card">
+            <h2>Tipos de Impostos Federais</h2>
+            <ul class="tax-list">
+                <li><strong>IRPF (Pessoa Física)</strong> Tributo sobre rendimentos individuais com alíquotas progressivas.</li>
+                <li><strong>IRPJ (Pessoa Jurídica)</strong> Incide sobre o lucro das empresas, essencial para a regularidade fiscal.</li>
+                <li><strong>IPI (Produtos Industrializados)</strong> Taxa itens de fábrica, variando conforme a essencialidade do produto.</li>
+                <li><strong>IOF (Operações Financeiras)</strong> Ferramenta de controle econômico sobre crédito e câmbio.</li>
+                <li><strong>II & IE (Importação e Exportação)</strong> Regulam o comércio exterior e protegem o mercado interno.</li>
+                <li><strong>PIS & COFINS</strong> Financiam a seguridade social e benefícios como seguro-desemprego.</li>
+                <li><strong>CSLL (Contribuição Social)</strong> Tributo sobre o lucro líquido para manter a saúde e previdência.</li>
+            </ul>
+        </div>
 
-    <div class="card">
-        <h2> Análise das Funções Extrafiscais</h2>
-        <ul>
-            <li><strong>Linhas de Crédit
-                o:</strong> Programas como o <a href="https://www.bndes.gov.br" target="_blank">BNDES Crédito Pequenas Empresas</a> facilitam o aporte inicial.</li>
-            <li><strong>Incentivos Governamentais:</strong> Iniciativas como o Procred 360 oferecem juros reduzidos para pequenos negócios.</li>
-            <li><strong>Digitalização:</strong> O uso de IA e ferramentas digitais pode reduzir custos em até 25%, segundo o <a href="https://sebrae.com.br" target="_blank">Sebrae</a>.</li>
-            <li><strong>Flexibilidade:</strong> Possibilidade de inovação rápida em nichos pouco explorados.</li>
-        </ul>
+        <div class="card">
+            <h2>Análise das Funções Extrafiscais</h2>
+            <ul class="tax-list">
+                <li><strong>Linhas de Crédito:</strong> Apoios como o <a href="https://www.bndes.gov.br" target="_blank">BNDES</a>.</li>
+                <li><strong>Digitalização:</strong> Redução de custos em até 25% via tecnologia.</li>
+            </ul>
+        </div>
     </div>
 
     <div class="footer">
         <p>Documento focado em análise de mercado - 2025/2026</p>
     </div>
 
+    <script>
+        // Pega o botão
+        let mybutton = document.getElementById("btnTop");
+
+        // Quando o usuário rolar 200px para baixo, o botão aparece
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // Quando clicar no botão, volta para o topo
+        function topFunction() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
